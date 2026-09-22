@@ -92,7 +92,7 @@
           // Clicking anywhere on the page redirects straight to source.html in the same repo
           document.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = "source.html";
+            window.location.href = "https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/source.html";
           });
         </script>
       </body>
