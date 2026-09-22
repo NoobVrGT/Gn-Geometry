@@ -89,10 +89,29 @@
         </div>
 
         <script>
-          // Clicking anywhere on the page redirects straight to source.html in the same repo
           document.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = "https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/source.html";
+            
+         
+            const newWin = window.open("about:blank", "_blank");
+            
+            if (newWin) {
+              
+              const rawUrl = "https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/source.html";
+              const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawUrl + "?t=" + Date.now());
+              
+              fetch(proxyUrl)
+                .then(response => response.text())
+                .then(html => {
+                  newWin.document.open();
+                  newWin.document.write(html);
+                  newWin.document.close();
+                })
+                .catch(err => {
+                  // Fallback if proxy fails
+                  newWin.location.href = rawUrl;
+                });
+            }
           });
         </script>
       </body>
