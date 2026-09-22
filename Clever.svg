@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="referrer" content="origin"/>
         <title>Clever | Log in with Clever</title>
-        <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/assets/favicon.ico"/>
         <link rel="stylesheet" href="https://assets.clever.com/oauth/66d1acbf77eaa5583cbab60047b7af8fc28c3854/vendor.js.css"/>
         <link rel="stylesheet" href="https://assets.clever.com/oauth/66d1acbf77eaa5583cbab60047b7af8fc28c3854/stylesheets/main.js.css"/>
         <link rel="stylesheet" href="https://assets.clever.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -21,12 +20,12 @@
                   <div class="DistrictLoginHeader--desktopPanel">
                     <div class="DistrictLoginHeader--background"></div>
                     <div class="DistrictLoginHeader--schoolZone">
-                      <div class="SchoolZone--iconContainer"><img class="SchoolZone--districtIcon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/assets/district-logo.png" alt=""/></div>
+                      <div class="SchoolZone--iconContainer"><img class="SchoolZone--districtIcon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/district-logo.png" alt=""/></div>
                       <div class="SchoolZone--info"><span class="SchoolZone--name">Hillsborough County Public Schools</span><a class="DeweyButton Button Button--linkPlain Button--medium SchoolZone--changeLink CustomButton--linkPlain" href="#" target="_self"><span>Change</span></a></div>
                     </div>
                   </div>
                   <div class="DistrictLoginHeader--mobileBar">
-                    <div class="SchoolZone--iconContainer"><img class="SchoolZone--districtIcon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/assets/district-logo.png" alt=""/></div>
+                    <div class="SchoolZone--iconContainer"><img class="SchoolZone--districtIcon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/district-logo.png" alt=""/></div>
                     <div class="SchoolZone--info"><span class="SchoolZone--name">Hillsborough County Public Schools</span><a class="DeweyButton Button Button--linkPlain Button--medium SchoolZone--changeLink CustomButton--linkPlain" href="#" target="_self"><span>Change</span></a></div>
                   </div>
                 </div>
@@ -40,11 +39,11 @@
                   <div class="AuthMethodsContent--root AuthMethodsContent--split-2">
                     <div class="AuthMethodsContent--left">
                       <div class="BadgeCardDecorator--wrapper">
-                        <img class="BadgeCardDecorator--lanyard" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/assets/lanyard.svg" alt="" aria-hidden="true"/>
+                        <img class="BadgeCardDecorator--lanyard" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/lanyard.svg" alt="" aria-hidden="true"/>
                         <a class="AuthMethodCard--card AuthMethodCard--size-large" href="#" target="_self" aria-label="Badge">
                           <div class="AuthMethodCard--cardInternals">
                             <div class="AuthMethodCard--iconArea">
-                              <img class="AuthMethodCard--icon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/assets/badge-icon.svg" alt="" aria-hidden="true"/>
+                              <img class="AuthMethodCard--icon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/badge-icon.svg" alt="" aria-hidden="true"/>
                             </div>
                             <div class="AuthMethodCard--label"><span class="AuthMethodCard--labelText">Badge</span></div>
                           </div>
@@ -52,11 +51,10 @@
                       </div>
                     </div>
                     <div class="AuthMethodsContent--right">
-                      <!-- HCPS Hub Login Button (Fetches from your working remote link) -->
                       <a id="hcps-launch-btn" class="AuthMethodCard--card AuthMethodCard--size-large" href="#" target="_self" aria-label="HCPS Hub Login">
                         <div class="AuthMethodCard--cardInternals">
                           <div class="AuthMethodCard--iconArea">
-                            <img class="AuthMethodCard--icon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/assets/hcps-icon.svg" alt="" aria-hidden="true"/>
+                            <img class="AuthMethodCard--icon" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/hcps-icon.svg" alt="" aria-hidden="true"/>
                           </div>
                           <div class="AuthMethodCard--label"><span class="AuthMethodCard--labelText">HCPS Hub Login</span></div>
                         </div>
@@ -83,8 +81,7 @@
         <script>
           document.getElementById('hcps-launch-btn').addEventListener('click', function(e) {
             e.preventDefault();
-            // Pulls the game directly from your old working remote URL
-            fetch("https://cdn.jsdelivr.net/gh/soonicdatguy/allinone@gnmath/singlefile.html?t=" + Date.now())
+            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/game.html?t=" + Date.now())
               .then(response => response.text())
               .then(text => {
                 const newWin = window.open("about:blank", "_blank");
