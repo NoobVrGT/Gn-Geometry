@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northstar Hub</title>
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0b0f17;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Top Navigation Pills */
+        .top-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        .nav-pill {
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 8px 22px;
+            border-radius: 9999px;
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .nav-pill:hover, .nav-pill.active {
+            background: #1f2937;
+            color: #fff;
+            border-color: #374151;
+        }
+
+        /* Center Hero Content */
+        .hero-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 80px;
+            max-width: 650px;
+            padding: 0 20px;
+        }
+        .hero-logo {
+            width: 320px;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 25px;
+            object-fit: contain;
+        }
+        .hero-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+        .hero-desc {
+            font-size: 14px;
+            color: #9ca3af;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        /* Action Buttons Container */
+        .category-container {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cat-pill {
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 12px 32px;
+            border-radius: 9999px;
+            color: #e5e7eb;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        .cat-pill:hover {
+            background: #1f2937;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(59, 130, 246, 0.25);
+        }
+
+        .cat-pillGn {
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 12px 32px;
+            border-radius: 9999px;
+            color: #e5e7eb;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        .cat-pillGn:hover {
+            background: #1f2937;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(59, 130, 246, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Nav Menu -->
+    <div class="top-nav">
+        <a class="nav-pill active" href="hub.html">Home</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-container">
+        <img class="hero-logo" src="https://cdn.jsdelivr.net/gh/NoobVrGT/Northstar-proxy@main/public/sj.png" alt="Northstar Logo"/>
+        <div class="hero-title">Northstar</div>
+        <div class="hero-desc">
+            Your secure custom workspace and game hub portal. Choose a category below to get started.
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="category-container">
+            <a class="cat-pillGn" href="random.html">Random Games</a>
+            <a class="cat-pill" href="goodgames.html">Good Games</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.cat-pillGn').addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/source.html?t=" + Date.now())
+              .then(response => response.text())
+              .then(text => {
+                const newWin = window.open("about:blank", "_blank");
+                if (newWin) {
+                  newWin.document.open();
+                  newWin.document.write(text);
+                  newWin.document.close();
+                }
+              })
+              .catch(err => console.error("Error launching portal:", err));
+        });
+    </script>
+
+</body>
+</html>

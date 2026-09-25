@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Games - Northstar Hub</title>
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0b0f17;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Top Navigation Pills */
+        .top-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        .nav-pill {
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 8px 22px;
+            border-radius: 9999px;
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .nav-pill:hover, .nav-pill.active {
+            background: #1f2937;
+            color: #fff;
+            border-color: #374151;
+        }
+
+        /* Center Hero Content */
+        .hero-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 40px;
+            max-width: 650px;
+            padding: 0 20px;
+        }
+        .hero-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .hero-desc {
+            font-size: 14px;
+            color: #9ca3af;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 40px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 9999px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        .search-input:focus {
+            border-color: #3b82f6;
+        }
+
+        /* Game Grid Container */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+        }
+
+        .game-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .game-card:hover {
+            background: #1f2937;
+            border-color: #3b82f6;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+        }
+
+        .game-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .game-desc {
+            font-size: 13px;
+            color: #9ca3af;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .cat-pill {
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            color: #e5e7eb;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            align-self: flex-start;
+            text-align: center;
+        }
+        .game-card:hover .cat-pill {
+            background: #1f2937;
+            border-color: #3b82f6;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <a href="hub.html" class="nav-pill">← Back to Hub</a>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="hero-container">
+        <div class="hero-title">Good Games Collection</div>
+        <div class="hero-desc">Select an application or game script to launch.</div>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search games..." onkeyup="filterGames()">
+        </div>
+    </div>
+
+    <!-- Games Grid -->
+    <div class="games-grid" id="gamesGrid">
+        
+        <!-- Music App -->
+        <a href="music.html" class="game-card">
+            <div>
+                <div class="game-title">Music App</div>
+                <div class="game-desc">Embedded audio streaming player utility.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Epstein Platformer -->
+        <a href="epstein.html" class="game-card">
+            <div>
+                <div class="game-title">Epstein Platformer</div>
+                <div class="game-desc">Arcade-style web platformer level loader.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Half Life 2 -->
+        <a href="halflife2.html" class="game-card">
+            <div>
+                <div class="game-title">Half-Life 2 -- Study</div>
+                <div class="game-desc">Web-ported launcher environment for HL2 study tools.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Superhot -->
+        <a href="superhot.html" class="game-card">
+            <div>
+                <div class="game-title">SUPERHOT</div>
+                <div class="game-desc">First-person shooter where time moves only when you move.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Gang Beasts -->
+        <a href="gangbeasts.html" class="game-card">
+            <div>
+                <div class="game-title">Gang Beasts</div>
+                <div class="game-desc">Silly multiplayer party game with gelatinous characters.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- KisakCOD -->
+        <a href="kisakcod.html" class="game-card">
+            <div>
+                <div class="game-title">KisakCOD</div>
+                <div class="game-desc">Advanced browser port installer and game runner.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+    </div>
+
+    <script>
+        function filterGames() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('game-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].querySelector('.game-title').innerText.toLowerCase();
+                let desc = cards[i].querySelector('.game-desc').innerText.toLowerCase();
+                if (title.includes(input) || desc.includes(input)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
