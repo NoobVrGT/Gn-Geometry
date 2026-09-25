@@ -143,7 +143,7 @@
 
         document.getElementById('goodGamesBtn').addEventListener('click', function(e) {
             e.preventDefault();
-            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Good-math.html?t=" + Date.now())
+            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/good-math.html?t=" + Date.now())
               .then(response => response.text())
               .then(text => {
                 const newWin = window.open("about:blank", "_blank");
