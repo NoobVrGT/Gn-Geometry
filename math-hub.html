@@ -140,7 +140,7 @@
         <!-- Action Buttons -->
         <div class="category-container">
             <a class="cat-pillGn" href="random.html">Random Games</a>
-            <a class="cat-pill" href="goodgames.html">Good Games</a>
+            <a class="cat-pillGG" href="goodgames.html">Good Games</a>
         </div>
     </div>
 
@@ -148,6 +148,23 @@
         document.querySelector('.cat-pillGn').addEventListener('click', function(e) {
             e.preventDefault();
             fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/source.html?t=" + Date.now())
+              .then(response => response.text())
+              .then(text => {
+                const newWin = window.open("about:blank", "_blank");
+                if (newWin) {
+                  newWin.document.open();
+                  newWin.document.write(text);
+                  newWin.document.close();
+                }
+              })
+              .catch(err => console.error("Error launching portal:", err));
+        });
+    </script>
+
+    <script>
+        document.querySelector('.cat-pillGG').addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Good-math.html?t=" + Date.now())
               .then(response => response.text())
               .then(text => {
                 const newWin = window.open("about:blank", "_blank");
