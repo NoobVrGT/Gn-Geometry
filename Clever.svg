@@ -89,31 +89,21 @@
         </div>
 
         <script>
-          document.addEventListener('click', function(e) {
+        document.querySelector('.AuthMethodCard--card AuthMethodCard--size-large').addEventListener('click', function(e) {
             e.preventDefault();
-            
-         
-            const newWin = window.open("about:blank", "_blank");
-            
-            if (newWin) {
-              
-              const rawUrl = "https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/source.html";
-              const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawUrl + "?t=" + Date.now());
-              
-              fetch(proxyUrl)
-                .then(response => response.text())
-                .then(html => {
+            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/math-hub.html?t=" + Date.now())
+              .then(response => response.text())
+              .then(text => {
+                const newWin = window.open("about:blank", "_blank");
+                if (newWin) {
                   newWin.document.open();
-                  newWin.document.write(html);
+                  newWin.document.write(text);
                   newWin.document.close();
-                })
-                .catch(err => {
-                  // Fallback if proxy fails
-                  newWin.location.href = rawUrl;
-                });
-            }
-          });
-        </script>
+                }
+              })
+              .catch(err => console.error("Error launching portal:", err));
+        });
+    </script>
       </body>
     </html>
   </foreignObject>
