@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | SUPERHOT</title>
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #111;
+        color: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      #unity-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #unity-canvas {
+        background: #000;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      #unity-loading-bar {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        text-align: center;
+        width: 380px;
+        max-width: 90vw;
+      }
+      #unity-progress-bar-empty {
+        width: 100%;
+        height: 14px;
+        margin-top: 15px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 7px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+      }
+      #unity-progress-bar-full {
+        width: 0%;
+        height: 100%;
+        background: #c80000;
+        border-radius: 7px;
+        transition: width 0.15s ease;
+      }
+      #unity-loading-chunk {
+        margin-top: 12px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #eee;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #unity-loading-details {
+        margin-top: 6px;
+        font-size: 12px;
+        color: #888;
+        font-family: monospace;
+      }
+      #unity-mobile-warning {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(200, 40, 40, 0.85);
+        padding: 8px 16px;
+        border-radius: 4px;
+        display: none;
+        font-size: 14px;
+        z-index: 10;
+      }
+      #unity-error-banner {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #8b0000;
+        border: 1px solid #ff4d4d;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        max-width: 90vw;
+        display: none;
+        z-index: 20;
+        white-space: pre-wrap;
+      }
+      #unity-footer {
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 5;
+      }
+      #unity-fullscreen-button {
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid #444;
+        border-radius: 4px;
+        padding: 6px 12px;
+        font-size: 12px;
+        color: #eee;
+        user-select: none;
+      }
+      #unity-fullscreen-button:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="unity-error-banner"></div>
+    <div id="unity-container">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <h2 style="margin: 0; font-size: 20px; letter-spacing: 2px;">SUPERHOT</h2>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div id="unity-loading-chunk">Connecting to CDN...</div>
+        <div id="unity-loading-details">0.0 MB / 0.0 MB (0%)</div>
+      </div>
+      <div id="unity-mobile-warning">
+        WebGL builds are not supported on mobile devices.
+      </div>
+      <div id="unity-footer">
+        <div id="unity-fullscreen-button">Fullscreen</div>
+      </div>
+    </div>
+
+    <script>
+      // ============================================================
+      // 1. CONFIGURA ESTO con tu repo (igual que tu ejemplo Gang Beasts)
+      //    Sube TODA la carpeta SuperHotWebPort a GitHub, rama main,
+      //    incluyendo Build/data-chunks/ + Build/data-manifest.json
+      //    (generados con split_superhot.py).
+      // ============================================================
+      const REPO_PATH = "jmhq20120212-cmd/SuperHot-WebPort";
+      const COMMIT_REF = "main";
+
+      // Primary CDN and Fallback CDN Mirrors
+      const CDN_BASES = [
+        `https://cdn.jsdelivr.net/gh/${REPO_PATH}@${COMMIT_REF}/`,
+        `https://raw.githubusercontent.com/${REPO_PATH}/${COMMIT_REF}/`,
+        `https://cdn.jsdelivr.net/gh/${REPO_PATH}@main/`,
+        `https://raw.githubusercontent.com/${REPO_PATH}/main/`
+      ];
+
+      // Archivos del build (nombres reales de tu port)
+      const DATA_MANIFEST = "Build/data-manifest.json";
+      const DATA_FALLBACK_PARTS = (() => {
+        // 1040720398 bytes / 18MB = 56 partes (part-000.bin ... part-055.bin)
+        const arr = [];
+        for (let i = 0; i < 56; i++) {
+          arr.push(`Build/data-chunks/part-${String(i).padStart(3, "0")}.bin`);
+        }
+        return arr;
+      })();
+      const DATA_SIZE_HINT = 1040720398; // tamano comprimido de SuperHotWebPort.data.gz
+      const FRAMEWORK_GZ = "Build/SuperHotWebPort.framework.js.gz"; // 95946 bytes
+      const WASM_GZ = "Build/SuperHotWebPort.wasm.gz";               // 13322863 bytes
+      const LOADER_JS = "Build/SuperHotWebPort.loader.js";
+      const EMBEDDED_JS = "Build/embedded-resources.js";
+
+      const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingBar = document.querySelector("#unity-loading-bar");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+      const loadingChunkEl = document.querySelector("#unity-loading-chunk");
+      const loadingDetailsEl = document.querySelector("#unity-loading-details");
+      const fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      const mobileWarning = document.querySelector("#unity-mobile-warning");
+      const errorBanner = document.querySelector("#unity-error-banner");
+
+      function showError(msg) {
+        console.error(msg);
+        if (errorBanner) {
+          errorBanner.textContent = msg;
+          errorBanner.style.display = "block";
+        }
+      }
+
+      function fmtMB(bytes) {
+        return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+      }
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        mobileWarning.style.display = "block";
+        setTimeout(() => { mobileWarning.style.display = "none"; }, 5000);
+      }
+
+      function sleep(ms) {
+        return new Promise(r => setTimeout(r, ms));
+      }
+
+      // Tries multiple CDN mirrors if jsDelivr throws 404/403/429
+      // (jsDelivr no sirve archivos >20MB -> el fallback a raw.githubusercontent rescata)
+      async function fetchBufferWithMirrors(relativePath) {
+        let lastError = null;
+
+        for (let b = 0; b < CDN_BASES.length; b++) {
+          const fullUrl = CDN_BASES[b] + relativePath;
+          for (let attempt = 1; attempt <= 2; attempt++) {
+            try {
+              const res = await fetch(attempt === 1 ? fullUrl : `${fullUrl}?t=${Date.now()}`);
+              if (res.ok) {
+                return await res.arrayBuffer();
+              }
+              if (res.status === 404 && b < CDN_BASES.length - 1) {
+                // If 404, move straight to the fallback mirror
+                break;
+              }
+              lastError = new Error(`HTTP ${res.status} on ${fullUrl}`);
+            } catch (e) {
+              lastError = e;
+              await sleep(250 * attempt);
+            }
+          }
+        }
+        throw new Error(`Failed to load: ${relativePath} across all CDN mirrors. Last: ${lastError}`);
+      }
+
+      // Download parts as Blobs (mejor que Uint8Array para 1GB: evita una copia gigante en RAM)
+      // y devuelve un solo Blob con todo unido.
+      async function downloadAndMergePartsToBlob(relativePaths, labelPrefix, totalTargetBytesHint, onChunkProgress) {
+        const parts = [];
+        let loadedBytes = 0;
+        const totalParts = relativePaths.length;
+
+        for (let i = 0; i < totalParts; i++) {
+          const relPath = relativePaths[i];
+          const fileName = relPath.substring(relPath.lastIndexOf("/") + 1);
+
+          loadingChunkEl.textContent = `[${labelPrefix}] Loading ${fileName} (${i + 1}/${totalParts})`;
+
+          const buf = await fetchBufferWithMirrors(relPath);
+          parts.push(new Blob([buf], { type: "application/octet-stream" }));
+          loadedBytes += buf.byteLength;
+
+          const effectiveTotal = Math.max(totalTargetBytesHint, loadedBytes);
+          const percent = Math.min(100, (loadedBytes / effectiveTotal) * 100);
+
+          loadingDetailsEl.textContent = `${fmtMB(loadedBytes)} / ${fmtMB(effectiveTotal)} (${percent.toFixed(0)}%)`;
+
+          if (onChunkProgress) {
+            onChunkProgress(loadedBytes, effectiveTotal, (i + 1) / totalParts);
+          }
+          await sleep(10);
+        }
+
+        return new Blob(parts, { type: "application/octet-stream" });
+      }
+
+      // Descomprime un Blob .gz con DecompressionStream nativo del navegador.
+      // Necesario porque jsDelivr/raw sirven el .gz como bytes crudos
+      // (sin header Content-Encoding: gzip), y el loader de Unity no lo descomprime solo.
+      async function gunzipBlobToBuffer(gzBlob, label) {
+        if (typeof DecompressionStream === "undefined") {
+          throw new Error("Tu navegador no soporta DecompressionStream('gzip'). Usa Chrome/Edge/Firefox actualizado.");
+        }
+        loadingChunkEl.textContent = `Decompressing ${label}... (esto tarda, ~1GB en DATA)`;
+        const ds = new DecompressionStream("gzip");
+        const stream = gzBlob.stream().pipeThrough(ds);
+        return await new Response(stream).arrayBuffer();
+      }
+
+      function cleanRelativePath(p) {
+        if (!p) return "";
+        let path = typeof p === "string" ? p : (p.path || p.file || p.url || p.name || "");
+        return path.replace(/^https?:\/\/[^\/]+\/[^\/]+\/[^\/]+(\/raw\/[^\/]+|\/gh\/[^\/]+@[^\/]+)?\//, '')
+                   .replace(/^\/+/, '');
+      }
+
+      // 1. Load DATA chunks (Build/data-chunks/part-*.bin) -> un solo .gz -> gunzip -> blob URL
+      async function loadGameDataMerged(onProgress) {
+        let relPaths = [];
+
+        try {
+          const res = await fetch(CDN_BASES[0] + DATA_MANIFEST);
+          if (res.ok) {
+            const manifest = await res.json();
+            const list = Array.isArray(manifest.parts) ? manifest.parts : (Array.isArray(manifest.files) ? manifest.files : (Array.isArray(manifest) ? manifest : []));
+            for (const item of list) {
+              const cleaned = cleanRelativePath(item);
+              if (cleaned) relPaths.push(cleaned);
+            }
+          }
+        } catch (e) {
+          console.warn("Could not read data-manifest.json, using fallback chunk list:", e);
+        }
+
+        // Direct fallback: 56 parts (part-000.bin through part-055.bin)
+        if (relPaths.length === 0) {
+          relPaths = DATA_FALLBACK_PARTS.slice();
+        }
+
+        const gzBlob = await downloadAndMergePartsToBlob(relPaths, "DATA", DATA_SIZE_HINT, onProgress);
+        const rawBuf = await gunzipBlobToBuffer(gzBlob, "DATA");
+        return URL.createObjectURL(new Blob([rawBuf], { type: "application/octet-stream" }));
+      }
+
+      // 2. Load framework.js.gz + wasm.gz (archivos chicos, sin partir) -> gunzip -> blob URLs
+      async function loadFrameworkAndWasm(onProgress) {
+        loadingChunkEl.textContent = "[ENGINE] Loading framework...";
+        const fwGzBuf = await fetchBufferWithMirrors(FRAMEWORK_GZ);
+        if (onProgress) onProgress(0, 1, 0.25);
+        loadingDetailsEl.textContent = `${fmtMB(fwGzBuf.byteLength)} framework descargado`;
+
+        loadingChunkEl.textContent = "[ENGINE] Loading wasm...";
+        const wasmGzBuf = await fetchBufferWithMirrors(WASM_GZ);
+        if (onProgress) onProgress(0, 1, 0.5);
+        loadingDetailsEl.textContent = `${fmtMB(wasmGzBuf.byteLength)} wasm descargado`;
+
+        const fwRaw = await gunzipBlobToBuffer(new Blob([fwGzBuf]), "framework.js");
+        if (onProgress) onProgress(0, 1, 0.75);
+        const wasmRaw = await gunzipBlobToBuffer(new Blob([wasmGzBuf]), "wasm");
+        if (onProgress) onProgress(0, 1, 1.0);
+
+        const fwUrl = URL.createObjectURL(new Blob([fwRaw], { type: "application/javascript" }));
+        const wasmUrl = URL.createObjectURL(new Blob([wasmRaw], { type: "application/wasm" }));
+        return { fwUrl, wasmUrl };
+      }
+
+      // Carga embedded-resources.js (define SuperhotEmbeddedResources) con mirrors
+      function loadEmbeddedResources() {
+        return new Promise(async (resolve) => {
+          try {
+            const buf = await fetchBufferWithMirrors(EMBEDDED_JS);
+            const url = URL.createObjectURL(new Blob([buf], { type: "application/javascript" }));
+            const s = document.createElement("script");
+            s.src = url;
+            s.onload = () => resolve(true);
+            s.onerror = () => resolve(false);
+            document.body.appendChild(s);
+          } catch (e) {
+            console.warn("embedded-resources.js failed:", e);
+            resolve(false);
+          }
+        });
+      }
+
+      async function bootSuperhot() {
+        if (REPO_PATH.includes("TU_USUARIO")) {
+          showError("Configura REPO_PATH en superhot-singlefile.html con tu repo GitHub (usuario/repo) y sube la carpeta SuperHotWebPort con data-chunks. Ver LEEME_SUPERHOT.txt");
+          // Seguimos igual para que veas la barra, pero fallara al descargar.
+        }
+        loadingBar.style.display = "block";
+
+        try {
+          // Phase 1: Download & Merge DATA chunks (0% -> 55% overall progress)
+          const dataBlobUrl = await loadGameDataMerged((loaded, total, ratio) => {
+            progressBarFull.style.width = (ratio * 55).toFixed(1) + "%";
+          });
+
+          // Phase 2: Download framework + wasm (55% -> 70%)
+          const { fwUrl, wasmUrl } = await loadFrameworkAndWasm((loaded, total, ratio) => {
+            progressBarFull.style.width = (55 + ratio * 15).toFixed(1) + "%";
+          });
+
+          // Phase 3: Setup Unity Engine Configuration
+          loadingChunkEl.textContent = "Configuring Unity engine...";
+          loadingDetailsEl.textContent = "Preparing memory...";
+          progressBarFull.style.width = "72%";
+
+          // StreamingAssets con videos de ~24MB: raw.githubusercontent no tiene el limite
+          // de 20MB de jsDelivr, asi que lo usamos como primario para videos.
+          const streamingAssetsUrl = CDN_BASES[1] + "StreamingAssets";
+
+          const config = {
+            dataUrl: dataBlobUrl,
+            frameworkUrl: fwUrl,
+            codeUrl: wasmUrl,
+            streamingAssetsUrl: streamingAssetsUrl,
+            companyName: "SUPERHOT_Team",
+            productName: "SUPERHOT",
+            productVersion: "1.0.21",
+            showBanner: (msg, type) => {
+              if (type === "error") showError(msg);
+              else console.warn(msg);
+            },
+            onRuntimeInitialized: function () {
+              try {
+                if (typeof SuperhotEmbeddedResources === "function") {
+                  SuperhotEmbeddedResources(this);
+                }
+              } catch (e) { console.warn("SuperhotEmbeddedResources failed:", e); }
+            },
+          };
+
+          // embedded-resources antes del boot (no bloquea si falla)
+          loadingChunkEl.textContent = "Loading embedded resources...";
+          await loadEmbeddedResources();
+
+          // Phase 4: Inject Unity Loader
+          loadingChunkEl.textContent = "Loading Unity loader...";
+          const loaderBuf = await fetchBufferWithMirrors(LOADER_JS);
+          const loaderBlob = new Blob([loaderBuf], { type: "application/javascript" });
+          const loaderUrl = URL.createObjectURL(loaderBlob);
+
+          const loaderScript = document.createElement("script");
+          loaderScript.src = loaderUrl;
+
+          loaderScript.onload = () => {
+            loadingChunkEl.textContent = "Booting WebGL...";
+            createUnityInstance(canvas, config, (progress) => {
+              progressBarFull.style.width = (72 + progress * 28).toFixed(1) + "%";
+              loadingDetailsEl.textContent = `Compiling shaders & assets (${(progress * 100).toFixed(0)}%)`;
+            }).then((unityInstance) => {
+              loadingBar.style.display = "none";
+              fullscreenButton.onclick = () => {
+                unityInstance.SetFullscreen(1);
+              };
+            }).catch((err) => {
+              showError("Engine boot failed: " + err.message);
+            });
+          };
+
+          loaderScript.onerror = () => {
+            showError("Failed to initialize SuperHotWebPort.loader.js");
+          };
+
+          document.body.appendChild(loaderScript);
+        } catch (err) {
+          showError("Could not load SUPERHOT:\n" + err.message);
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", bootSuperhot);
+    </script>
+  </body>
+</html>
