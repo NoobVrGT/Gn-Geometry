@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,47 +101,6 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px -2px rgba(59, 130, 246, 0.25);
         }
-
-        .cat-pillGn {
-            background: #111827;
-            border: 1px solid #1f2937;
-            padding: 12px 32px;
-            border-radius: 9999px;
-            color: #e5e7eb;
-            font-size: 15px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-        }
-        .cat-pillGn:hover {
-            background: #1f2937;
-            border-color: #3b82f6;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px -2px rgba(59, 130, 246, 0.25);
-        }
-
-
-        .cat-pillGG {
-            background: #111827;
-            border: 1px solid #1f2937;
-            padding: 12px 32px;
-            border-radius: 9999px;
-            color: #e5e7eb;
-            font-size: 15px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-        }
-        .cat-pillGG:hover {
-            background: #1f2937;
-            border-color: #3b82f6;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px -2px rgba(59, 130, 246, 0.25);
-        }
     </style>
 </head>
 <body>
@@ -160,13 +120,13 @@
 
         <!-- Action Buttons -->
         <div class="category-container">
-            <a class="cat-pillGn" href="random.html">Random Games</a>
-            <a class="cat-pillGG" href="good-math.html">Good Games</a>
+            <a class="cat-pill" id="randomBtn" href="random.html">Random Games</a>
+            <a class="cat-pill" id="goodGamesBtn" href="good-math.html">Good Games</a>
         </div>
     </div>
 
     <script>
-        document.querySelector('.cat-pillGn').addEventListener('click', function(e) {
+        document.getElementById('randomBtn').addEventListener('click', function(e) {
             e.preventDefault();
             fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/source.html?t=" + Date.now())
               .then(response => response.text())
@@ -180,16 +140,15 @@
               })
               .catch(err => console.error("Error launching portal:", err));
         });
-    </script>
 
-    <script>
-        document.querySelector('.cat-pillGG').addEventListener('click', function(e) {
+        document.getElementById('goodGamesBtn').addEventListener('click', function(e) {
             e.preventDefault();
-            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Good-math.html?t=" + Date.now())
+            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/good-math.html?t=" + Date.now())
               .then(response => response.text())
               .then(text => {
                 const newWin = window.open("about:blank", "_blank");
                 if (newWin) {
+                  newWin.newWin.document.open(); 
                   newWin.document.open();
                   newWin.document.write(text);
                   newWin.document.close();
