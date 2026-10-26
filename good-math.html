@@ -206,7 +206,7 @@
         </a>
 
         <!-- Superhot -->
-        <a href="superhot-singlefile.html" class="game-card">
+        <a href="superhot-singlefile.html" class="game-card"id=superhot>
             <div>
                 <div class="game-title">SUPERHOT</div>
                 <div class="game-desc">First-person shooter where time moves only when you move.</div>
@@ -215,7 +215,7 @@
         </a>
 
         <!-- Gang Beasts -->
-        <a href="gangbeastsinglefil.html" class="game-card">
+        <a href="gangbeastsinglefil.html" class="game-card"id=gangbeast>
             <div>
                 <div class="game-title">Gang Beasts</div>
                 <div class="game-desc">Silly multiplayer party game with gelatinous characters.</div>
@@ -269,22 +269,8 @@
         });
     </script>
 
-      <script>
-        document.querySelector('.cat-pill-cod').addEventListener('click', function(e) {
-            e.preventDefault();
-            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/cod.html?t=" + Date.now())
-              .then(response => response.text())
-              .then(text => {
-                const newWin = window.open("about:blank", "_blank");
-                if (newWin) {
-                  newWin.document.open();
-                  newWin.document.write(text);
-                  newWin.document.close();
-                }
-              })
-              .catch(err => console.error("Error launching portal:", err));
-        });
-    </script>
+
+   
 
      <script>
         document.getElementById('cod').addEventListener('click', function(e) {
@@ -297,6 +283,60 @@
                 
                 // 2. Fetch the content afterwards
                 fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/cod.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <script>
+        document.getElementById('gangbeast').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 1. Open the window immediately on click to bypass pop-up blockers
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                
+                // 2. Fetch the content afterwards
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/gangbeastsinglefil.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+    <script>
+        document.getElementById('superhot').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 1. Open the window immediately on click to bypass pop-up blockers
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                
+                // 2. Fetch the content afterwards
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/superhot-singlefile.html?t=" + Date.now())
                   .then(response => response.text())
                   .then(text => {
                     newWin.document.open();
