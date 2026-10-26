@@ -224,7 +224,7 @@
         </a>
 
         <!-- KisakCOD -->
-        <a href="cod.html" class="game-card">
+        <a href="cod.html" class="game-card" id=cod>
             <div>
                 <div class="game-title">KisakCOD</div>
                 <div class="game-desc">Advanced browser port installer and game runner.</div>
@@ -285,5 +285,33 @@
               .catch(err => console.error("Error launching portal:", err));
         });
     </script>
+
+     <script>
+        document.getElementById('cod').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 1. Open the window immediately on click to bypass pop-up blockers
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                
+                // 2. Fetch the content afterwards
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/cod.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
 </body>
 </html>
