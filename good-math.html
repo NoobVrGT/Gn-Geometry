@@ -229,7 +229,7 @@
                 <div class="game-title">KisakCOD</div>
                 <div class="game-desc">Advanced browser port installer and game runner.</div>
             </div>
-            <div class="cat-pill">Play Now</div>
+            <div class="cat-pill-cod">Play Now</div>
         </a>
 
     </div>
@@ -256,6 +256,23 @@
         document.querySelector('.cat-pill').addEventListener('click', function(e) {
             e.preventDefault();
             fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/math-hub.html?t=" + Date.now())
+              .then(response => response.text())
+              .then(text => {
+                const newWin = window.open("about:blank", "_blank");
+                if (newWin) {
+                  newWin.document.open();
+                  newWin.document.write(text);
+                  newWin.document.close();
+                }
+              })
+              .catch(err => console.error("Error launching portal:", err));
+        });
+    </script>
+
+      <script>
+        document.querySelector('.cat-pill-cod').addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/cod.html?t=" + Date.now())
               .then(response => response.text())
               .then(text => {
                 const newWin = window.open("about:blank", "_blank");
