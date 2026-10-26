@@ -187,11 +187,11 @@
             <div class="cat-pill">Play Now</div>
         </a>
 
-        <!-- Epstein Platformer -->
-        <a href="epstein-platformer-1.html" class="game-card">
+        <!-- Minecraft -->
+        <a href="Minecraft-Loader.html" class="game-card"id=minecraft>
             <div>
-                <div class="game-title">Epstein Platformer</div>
-                <div class="game-desc">Arcade-style web platformer level loader.</div>
+                <div class="game-title">Minecraft Java 26.2</div>
+                <div class="game-desc">The Newest minecraft.</div>
             </div>
             <div class="cat-pill">Play Now</div>
         </a>
@@ -224,7 +224,7 @@
         </a>
 
         <!-- KisakCOD -->
-        <a href="cod.html" class="game-card" id=cod>
+        <a href="cod.html" class="game-card"id=cod>
             <div>
                 <div class="game-title">KisakCOD</div>
                 <div class="game-desc">Advanced browser port installer and game runner.</div>
@@ -352,6 +352,34 @@
             }
         });
      </script>
+
+    <script>
+        document.getElementById('minecraft').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 1. Open the window immediately on click to bypass pop-up blockers
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                
+                // 2. Fetch the content afterwards
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Minecraft-Loader.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
 
 </body>
 </html>
