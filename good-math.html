@@ -196,11 +196,11 @@
             <div class="cat-pill">Play Now</div>
         </a>
 
-        <!-- Half Life 2 -->
-        <a href="half-life-2.html" class="game-card">
+        <!-- EchoV2 -->
+        <a href="echov2.html" class="game-card"id=echoAI>
             <div>
-                <div class="game-title">Half-Life 2 -- Study</div>
-                <div class="game-desc">Web-ported launcher environment for HL2 study tools.</div>
+                <div class="game-title">EchoV2//AI</div>
+                <div class="game-desc">A state of the art working ai made by Charlie L and Liam L</div>
             </div>
             <div class="cat-pill">Play Now</div>
         </a>
@@ -364,6 +364,33 @@
                 
                 // 2. Fetch the content afterwards
                 fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Minecraft-Loader.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+    <script>
+        document.getElementById('echoAI').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 1. Open the window immediately on click to bypass pop-up blockers
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                
+                // 2. Fetch the content afterwards
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/echov2.html?t=" + Date.now())
                   .then(response => response.text())
                   .then(text => {
                     newWin.document.open();
