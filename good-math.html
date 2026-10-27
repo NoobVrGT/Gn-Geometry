@@ -188,7 +188,7 @@
         </a>
 
         <!-- Minecraft -->
-        <a href="Minecraft-Loader.html" class="game-card"id=minecraft>
+        <a href="Minecraft-Loader.html" class="game-card" id="minecraft">
             <div>
                 <div class="game-title">Minecraft Java 26.2</div>
                 <div class="game-desc">The Newest minecraft.</div>
@@ -197,7 +197,7 @@
         </a>
 
         <!-- EchoV2 -->
-        <a href="echov2.html" class="game-card"id=echoAI>
+        <a href="echov2.html" class="game-card" id="echoAI">
             <div>
                 <div class="game-title">EchoV2//AI</div>
                 <div class="game-desc">A state of the art working ai made by Charlie L and Liam L</div>
@@ -206,7 +206,7 @@
         </a>
 
         <!-- Superhot -->
-        <a href="superhot-singlefile.html" class="game-card"id=superhot>
+        <a href="superhot-singlefile.html" class="game-card" id="superhot">
             <div>
                 <div class="game-title">SUPERHOT</div>
                 <div class="game-desc">First-person shooter where time moves only when you move.</div>
@@ -215,7 +215,7 @@
         </a>
 
         <!-- Gang Beasts -->
-        <a href="gangbeastsinglefil.html" class="game-card"id=gangbeast>
+        <a href="gangbeastsinglefil.html" class="game-card" id="gangbeast">
             <div>
                 <div class="game-title">Gang Beasts</div>
                 <div class="game-desc">Silly multiplayer party game with gelatinous characters.</div>
@@ -224,16 +224,98 @@
         </a>
 
         <!-- KisakCOD -->
-        <a href="cod.html" class="game-card"id=cod>
+        <a href="cod.html" class="game-card" id="cod">
             <div>
                 <div class="game-title">KisakCOD</div>
                 <div class="game-desc">Advanced browser port installer and game runner.</div>
             </div>
-            <div class="cat-pill-cod">Play Now</div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Undead Corridor -->
+        <a href="undead.html" class="game-card" id="undead">
+            <div>
+                <div class="game-title">Undead Corridor</div>
+                <div class="game-desc">Action-packed zombie survival corridor game.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Tomb Of The Mask -->
+        <a href="Tomb Of The Mask.html" class="game-card" id="tomb">
+            <div>
+                <div class="game-title">Tomb Of The Mask</div>
+                <div class="game-desc">Fast-paced arcade platformer with retro mechanics.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Time Shooter 3: SWAT -->
+        <a href="Time Shooter 3_ SWAT.html" class="game-card" id="timeshooter">
+            <div>
+                <div class="game-title">Time Shooter 3: SWAT</div>
+                <div class="game-desc">Time moves only when you move in this tactical FPS.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Spaceflight Simulator -->
+        <a href="Spaceflight Simulator.html" class="game-card" id="spaceflight">
+            <div>
+                <div class="game-title">Spaceflight Simulator</div>
+                <div class="game-desc">Build custom rockets and explore space.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Snowbattle.io -->
+        <a href="Snowbattle.io.html" class="game-card" id="snowbattle">
+            <div>
+                <div class="game-title">Snowbattle.io</div>
+                <div class="game-desc">Multiplayer snowball battle arena game.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- RE:RUN -->
+        <a href="RE_RUN.html" class="game-card" id="rerun">
+            <div>
+                <div class="game-title">RE:RUN</div>
+                <div class="game-desc">Platformer game where you run, jump, and solve puzzles.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Karlson -->
+        <a href="Karlson.html" class="game-card" id="karlson">
+            <div>
+                <div class="game-title">Karlson</div>
+                <div class="game-desc">Fast-paced 3D platformer and shooter by Dani.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Just Shapes & Beats -->
+        <a href="Just Shapes & Beats.html" class="game-card" id="jsab">
+            <div>
+                <div class="game-title">Just Shapes & Beats</div>
+                <div class="game-desc">Chaotic musical bullet hell cooperative game.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
+        </a>
+
+        <!-- Gorilla Tag -->
+        <a href="Gorilla Tag.html" class="game-card" id="gorillatag">
+            <div>
+                <div class="game-title">Gorilla Tag</div>
+                <div class="game-desc">Locomotion VR-style multiplayer tag game in the browser.</div>
+            </div>
+            <div class="cat-pill">Play Now</div>
         </a>
 
     </div>
 
+    <!-- Search Script -->
     <script>
         function filterGames() {
             let input = document.getElementById('searchInput').value.toLowerCase();
@@ -251,7 +333,7 @@
         }
     </script>
 
-
+    <!-- Music App Script -->
     <script>
         document.querySelector('.cat-pill').addEventListener('click', function(e) {
             e.preventDefault();
@@ -269,19 +351,13 @@
         });
     </script>
 
-
-   
-
-     <script>
+    <!-- KisakCOD Script -->
+    <script>
         document.getElementById('cod').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // 1. Open the window immediately on click to bypass pop-up blockers
             const newWin = window.open("about:blank", "_blank");
             if (newWin) {
                 newWin.document.write("Loading game...");
-                
-                // 2. Fetch the content afterwards
                 fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/cod.html?t=" + Date.now())
                   .then(response => response.text())
                   .then(text => {
@@ -299,16 +375,13 @@
         });
      </script>
 
+     <!-- Gang Beasts Script -->
      <script>
         document.getElementById('gangbeast').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // 1. Open the window immediately on click to bypass pop-up blockers
             const newWin = window.open("about:blank", "_blank");
             if (newWin) {
                 newWin.document.write("Loading game...");
-                
-                // 2. Fetch the content afterwards
                 fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/gangbeastsinglefil.html?t=" + Date.now())
                   .then(response => response.text())
                   .then(text => {
@@ -326,16 +399,13 @@
         });
      </script>
 
+    <!-- SUPERHOT Script -->
     <script>
         document.getElementById('superhot').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // 1. Open the window immediately on click to bypass pop-up blockers
             const newWin = window.open("about:blank", "_blank");
             if (newWin) {
                 newWin.document.write("Loading game...");
-                
-                // 2. Fetch the content afterwards
                 fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/superhot-singlefile.html?t=" + Date.now())
                   .then(response => response.text())
                   .then(text => {
@@ -353,16 +423,13 @@
         });
      </script>
 
+    <!-- Minecraft Script -->
     <script>
         document.getElementById('minecraft').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // 1. Open the window immediately on click to bypass pop-up blockers
             const newWin = window.open("about:blank", "_blank");
             if (newWin) {
                 newWin.document.write("Loading game...");
-                
-                // 2. Fetch the content afterwards
                 fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Minecraft-Loader.html?t=" + Date.now())
                   .then(response => response.text())
                   .then(text => {
@@ -380,16 +447,13 @@
         });
      </script>
 
+    <!-- EchoV2 Script -->
     <script>
         document.getElementById('echoAI').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // 1. Open the window immediately on click to bypass pop-up blockers
             const newWin = window.open("about:blank", "_blank");
             if (newWin) {
                 newWin.document.write("Loading game...");
-                
-                // 2. Fetch the content afterwards
                 fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/echov2.html?t=" + Date.now())
                   .then(response => response.text())
                   .then(text => {
@@ -407,6 +471,221 @@
         });
      </script>
 
+     <!-- Undead Corridor Script -->
+     <script>
+        document.getElementById('undead').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/undead.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- Tomb Of The Mask Script -->
+     <script>
+        document.getElementById('tomb').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Tomb Of The Mask.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- Time Shooter 3: SWAT Script -->
+     <script>
+        document.getElementById('timeshooter').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Time Shooter 3_ SWAT.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- Spaceflight Simulator Script -->
+     <script>
+        document.getElementById('spaceflight').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Spaceflight Simulator.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- Snowbattle.io Script -->
+     <script>
+        document.getElementById('snowbattle').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Snowbattle.io.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- RE:RUN Script -->
+     <script>
+        document.getElementById('rerun').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/RE_RUN.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- Karlson Script -->
+     <script>
+        document.getElementById('karlson').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Karlson.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- Just Shapes & Beats Script -->
+     <script>
+        document.getElementById('jsab').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Just Shapes & Beats.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
+
+     <!-- Gorilla Tag Script -->
+     <script>
+        document.getElementById('gorillatag').addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Gorilla Tag.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
+        });
+     </script>
 
 </body>
 </html>
