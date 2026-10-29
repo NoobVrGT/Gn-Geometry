@@ -179,10 +179,10 @@
     <div class="games-grid" id="gamesGrid">
         
         <!-- Music App -->
-        <a href="music.html" class="game-card">
+        <a href="Echov3.html" class="game-card">
             <div>
-                <div class="game-title">Music App</div>
-                <div class="game-desc">Embedded audio streaming player utility.</div>
+                <div class="game-title">Echov3id="Echov3"</div>
+                <div class="game-desc">An improved ai that charley cant use</div>
             </div>
             <div class="cat-pill">Play Now</div>
         </a>
@@ -333,24 +333,31 @@
         }
     </script>
 
-    <!-- Music App Script -->
+   
+<!--Echov3 -->
     <script>
-        document.querySelector('.cat-pill').addEventListener('click', function(e) {
+        document.getElementById('Echov3').addEventListener('click', function(e) {
             e.preventDefault();
-            fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/math-hub.html?t=" + Date.now())
-              .then(response => response.text())
-              .then(text => {
-                const newWin = window.open("about:blank", "_blank");
-                if (newWin) {
-                  newWin.document.open();
-                  newWin.document.write(text);
-                  newWin.document.close();
-                }
-              })
-              .catch(err => console.error("Error launching portal:", err));
+            const newWin = window.open("about:blank", "_blank");
+            if (newWin) {
+                newWin.document.write("Loading game...");
+                fetch("https://cdn.jsdelivr.net/gh/NoobVrGT/Gn-Geometry@main/Echov3.html?t=" + Date.now())
+                  .then(response => response.text())
+                  .then(text => {
+                    newWin.document.open();
+                    newWin.document.write(text);
+                    newWin.document.close();
+                  })
+                  .catch(err => {
+                    console.error("Error launching portal:", err);
+                    newWin.document.write("Failed to load content.");
+                  });
+            } else {
+                alert("Pop-up blocked! Please allow pop-ups for this site.");
+            }
         });
-    </script>
-
+     </script>
+    
     <!-- KisakCOD Script -->
     <script>
         document.getElementById('cod').addEventListener('click', function(e) {
